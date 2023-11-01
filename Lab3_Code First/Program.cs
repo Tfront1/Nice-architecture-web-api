@@ -3,6 +3,8 @@ using DataAccess.Context;
 using DataAccess.Repositories;
 using Lab3_Code_First.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace Lab3_Code_First
 {
@@ -17,7 +19,13 @@ namespace Lab3_Code_First
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(
+                c =>
+                {
+                    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                    c.IncludeXmlComments(xmlPath);
+                });
 
             var connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=lab3CodeFirst;Trusted_Connection=True";
             builder.Services.AddDbContext<SkiResContext>(options =>

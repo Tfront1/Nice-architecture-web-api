@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Lab3_Code_First</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\1\Desktop\5sem\KPZ\3\Lab3_Code_First\Lab3_Code First\bin\Debug\net7.0\Lab3_Code First.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

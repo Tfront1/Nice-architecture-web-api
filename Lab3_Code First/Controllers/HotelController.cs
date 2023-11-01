@@ -4,6 +4,7 @@ using DataAccess.Models.HotelSpace;
 using Lab3_Code_First.Models.Client;
 using Lab3_Code_First.Models.Hotel;
 using Lab3_Code_First.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,15 @@ namespace Lab3_Code_First.Controllers
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
+        /// <summary>
+        /// Create new hotel.
+        /// </summary>
+        /// <param name="hotelDto">Hotel entity to create new hotel entity.</param>
+        /// <returns>Hotel that was created.</returns>
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HotelDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
         public async Task<IActionResult> Create(HotelDto hotelDto)
         {
@@ -32,6 +42,14 @@ namespace Lab3_Code_First.Controllers
                 newHotel);
         }
 
+        /// <summary>
+        /// Delete existing hotel.
+        /// </summary>
+        /// <param name="hotelDto">Hotel entity to delete existing hotel entity.</param>
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete]
         public async Task<IActionResult> Delete(HotelDto hotelDto)
         {
@@ -40,6 +58,15 @@ namespace Lab3_Code_First.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Update existing hotel.
+        /// </summary>
+        /// <param name="hotelDto">Hotel entity to update existing hotel entity.</param>
+        /// <returns>Hotel that was updated.</returns>
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HotelDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut]
         public async Task<IActionResult> Update(HotelDto hotelDto)
         {
@@ -48,6 +75,16 @@ namespace Lab3_Code_First.Controllers
             return Ok(updatedHotel);
         }
 
+        /// <summary>
+        /// Get existing hotel by id.
+        /// </summary>
+        /// <param name="id">Hotel id to get existing hotel entity.</param>
+        /// <returns>Hotel that was finded.</returns>
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HotelDto))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -60,6 +97,15 @@ namespace Lab3_Code_First.Controllers
             return Ok(hotel);
         }
 
+        /// <summary>
+        /// Get all existing hotels.
+        /// </summary>
+        /// <returns>Hotels that was finded.</returns>
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<HotelDto>))]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
